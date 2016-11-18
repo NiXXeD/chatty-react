@@ -1,0 +1,29 @@
+{
+  "name": "chatty-react",
+  "version": "0.1.0",
+  "description": "Describe chatty-react here",
+  "scripts": {
+    "build": "nwb build-react-app",
+    "clean": "nwb clean-app",
+    "start": "nwb serve-react-app",
+    "test": "nwb test",
+    "test:coverage": "nwb test --coverage",
+    "test:watch": "nwb test --server"
+  },
+  "dependencies": {
+    "material-ui": "0.16.2",
+    "react": "15.3.2",
+    "react-dom": "15.3.2",
+    "react-router": "3.0.0",
+    "react-tap-event-plugin": "1.0.0"
+  },
+  "devDependencies": {
+    "nwb": "0.12.x",
+    "nwb-postcss": "file:./plugins/nwb-postcss",
+    "postcss-loader": "1.1.1",
+    "precss": "1.4.0"
+  },
+  "author": "Andy Christianson <nix@nixxed.com>",
+  "license": "MIT",
+  "repository": ""
+}
