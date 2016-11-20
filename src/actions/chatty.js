@@ -2,12 +2,12 @@ export const fetchChatty = () => {
     return dispatch => {
         dispatch(requestChatty())
 
-        return fetch('https://winchatty.com/v2/getChatty')
+        return fetch('https://winchatty.com/v2/getChatty?count=5')
             .then(response => response.json())
             .then(data => dispatch(receiveChatty(data.threads)))
             .then(() => fetch('https://winchatty.com/v2/getNewestEventId'))
-            .then(response => response.json())
-            .then(data => dispatch(waitForEvent(data.eventId)))
+            // .then(response => response.json())
+            // .then(data => dispatch(waitForEvent(data.eventId)))
     }
 }
 

@@ -1,20 +1,23 @@
 import React, {Component} from 'react'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
+import Post from './Post'
+import Comments from './Comments'
 
 import './Thread.scss'
 class Thread extends Component {
     render() {
         let {thread} = this.props
 
-        return <Card className="Thread">
-            <CardHeader title={thread.author}/>
-            <CardText>{thread.body}</CardText>
-            <CardActions>
-                <FlatButton label="Action1"/>
-                <FlatButton label="Action2"/>
-            </CardActions>
-        </Card>
+        return <div className="Thread">
+            <div className="rootPost">
+                <Post post={thread}/>
+            </div>
+
+            {/*reply box*/}
+
+            <div className="CommentsContainer">
+                <Comments replies={thread.replies}/>
+            </div>
+        </div>
     }
 }
 

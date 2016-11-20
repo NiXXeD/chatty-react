@@ -2,6 +2,12 @@
   "name": "chatty-react",
   "version": "0.1.0",
   "description": "Describe chatty-react here",
+  "author": "Andy Christianson <nix@nixxed.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NiXXeD/chatty-react"
+  },
   "scripts": {
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
@@ -11,7 +17,7 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
-    "lodash": "^4.17.2",
+    "lodash": "4.17.2",
     "material-ui": "0.16.2",
     "react": "15.3.2",
     "react-dom": "15.3.2",
@@ -24,11 +30,6 @@
   },
   "devDependencies": {
     "nwb": "0.12.x",
-    "nwb-postcss": "file:./plugins/nwb-postcss",
-    "postcss-loader": "1.1.1",
-    "precss": "1.4.0"
-  },
-  "author": "Andy Christianson <nix@nixxed.com>",
-  "license": "MIT",
-  "repository": ""
+    "nwb-sass": "^0.6.0"
+  }
 }

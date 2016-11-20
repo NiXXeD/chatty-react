@@ -6,9 +6,9 @@ class Chatty extends Component {
     render() {
         let {threads=[]} = this.props
 
-        return <div>
+        return <div className="Chatty">
             {threads.map(thread => {
-                return <Thread thread={thread}/>
+                return <Thread key={thread.id} thread={thread}/>
             })}
         </div>
     }
