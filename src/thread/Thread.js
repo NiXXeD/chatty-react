@@ -1,21 +1,21 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Post from './Post'
 import Comments from './Comments'
 
 import './Thread.scss'
-class Thread extends Component {
+class Thread extends React.PureComponent {
     render() {
-        let {thread} = this.props
+        let {post, posts} = this.props
 
         return <div className="Thread">
             <div className="rootPost">
-                <Post post={thread}/>
+                <Post post={post}/>
             </div>
 
             {/*reply box*/}
 
             <div className="CommentsContainer">
-                <Comments replies={thread.replies}/>
+                <Comments post={post} posts={posts} />
             </div>
         </div>
     }

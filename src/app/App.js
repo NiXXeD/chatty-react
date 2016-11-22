@@ -6,17 +6,18 @@ import Nav from '../nav/Nav'
 import LinearProgress from 'material-ui/LinearProgress'
 import Chatty from '../chatty/Chatty'
 import {fetchChatty} from '../actions/chatty'
+import {filter} from 'lodash'
 
 import './App.scss'
 class App extends Component {
     render() {
-        const { chatty: { isFetching }} = this.props
+        let { chatty: { isFetching, posts, threads }} = this.props
 
         return <MuiThemeProvider muiTheme={Theme}>
             <div>
                 <Nav/>
                 {isFetching ? <LinearProgress color="orange" mode="indeterminate" /> : ''}
-                <Chatty threads={this.props.chatty.threads}/>
+                <Chatty threads={threads} posts={posts} />
             </div>
         </MuiThemeProvider>
     }

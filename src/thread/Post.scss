@@ -1,3 +1,18 @@
+.rootPost {
+    background-color: #202224;
+    position: relative;
+    padding: 0 0 25px 0;
+    border: 1px solid black;
+}
+
+.replyPost {
+    background-color: #121212;
+    border: 1px solid #656565;
+    padding: 0 0 25px 0;
+    margin-bottom: 2px;
+    position: relative;
+}
+
 .postheader {
     background-color: #373a3c;
     padding: 3px 3px 3px 20px;
@@ -80,7 +95,7 @@
     color: lightgray;
     font-size: 13px;
     line-height: 16px;
-    margin: 5px 22px 0 22px;
+    margin: 5px 22px 5px 22px;
 
     a:link,
     a:visited,
@@ -91,5 +106,20 @@
 
     a:hover {
         color: #fff;
+    }
+}
+
+.actionbar {
+    position: absolute;
+    bottom: 2px;
+    left: 17px;
+}
+
+.actionItem {
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        color: #00bff3!important;
     }
 }

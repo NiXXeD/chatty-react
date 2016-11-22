@@ -1,8 +1,12 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {connect} from 'react-redux'
+import * as userActionCreators from '../actions/userActions'
+import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import ReplyIcon from 'material-ui/svg-icons/content/reply'
 
 import './Post.scss'
 import './shacktags.scss'
-class Post extends Component {
+class Post extends React.PureComponent {
     render() {
         let {post} = this.props
         let html = {__html: post.body}
@@ -23,20 +27,24 @@ class Post extends Component {
 
                 <div className="postBody postBodyText" dangerouslySetInnerHTML={html}/>
 
-                {/*<div className="actionbar">*/}
-                    {/*<i className="actionItem fa fa-close" title="Collapse post" />*/}
+                <div className="actionbar">
+                    <CloseIcon className="actionItem"
+                               title="Collapse post"
+                               onClick={() => this.props.collapseReply(post.id)}/>
+                    <ReplyIcon className="actionItem"
+                               title="Reply to post"/>
                     {/*<i className="actionItem fa fa-comment" title="Reply to post" />*/}
                     {/*<a target="_blank">*/}
-                        {/*<i className="actionItem fa fa-bookmark" title="Open in tab" />*/}
+                    {/*<i className="actionItem fa fa-bookmark" title="Open in tab" />*/}
                     {/*</a>*/}
                     {/*<i className="actionItem fa fa-star" title="Pin to cloud" />*/}
                     {/*<a target="_blank">*/}
-                        {/*<i className="actionItem fa fa-external-link" title="View at shacknews.com"/>*/}
+                    {/*<i className="actionItem fa fa-external-link" title="View at shacknews.com"/>*/}
                     {/*</a>*/}
-                {/*</div>*/}
+                </div>
             </div>
         )
     }
 }
 
-export default Post
+export default connect(null, userActionCreators)(Post)
