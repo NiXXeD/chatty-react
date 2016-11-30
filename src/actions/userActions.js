@@ -14,6 +14,7 @@ export const collapseReply = (threadId, postId) => ({
     delta: {
         posts: {
             [threadId]: {
+                replyBoxOpenForId: null,
                 expandedReplyId: null
             }
         }
