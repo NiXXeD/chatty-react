@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 
 import './Nav.scss'
-class Nav extends Component {
+class Nav extends React.PureComponent {
     state = {
         open: false
     }

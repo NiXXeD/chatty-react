@@ -1,22 +1,20 @@
-export const expandReply = id => ({
+export const expandReply = (threadId, postId) => ({
     type: 'EXPAND_REPLY',
-    id,
-    data: {
+    delta: {
         posts: {
-            [id]: {
-                expanded: true
+            [threadId]: {
+                expandedReply: postId
             }
         }
     }
 })
 
-export const collapseReply = id => ({
+export const collapseReply = (threadId, postId) => ({
     type: 'COLLAPSE_REPLY',
-    id,
-    data: {
+    delta: {
         posts: {
-            [id]: {
-                expanded: false
+            [threadId]: {
+                expandedReply: null
             }
         }
     }

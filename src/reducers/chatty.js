@@ -14,10 +14,10 @@ function chatty(state = {}, action) {
         case 'EVENTS_RECEIVED':
 
         case 'EXPAND_REPLY':
-            return merge({}, state, action.data)
+            return merge({}, state, action.delta)
 
         case 'COLLAPSE_REPLY':
-            return merge({}, state, action.data)
+            return merge({}, state, action.delta)
 
         default:
             return state
@@ -36,12 +36,7 @@ function buildChatty(chatty) {
         .keyBy('id')
         .value()
 
-    let threads = chain(posts)
-        .filter({parentId: 0})
-        .map('id')
-        .value()
-
-    return {posts, threads}
+    return {posts}
 }
 
 function getSnippet(body) {
@@ -51,10 +46,10 @@ function getSnippet(body) {
 }
 
 function htmlSnippet(input, maxLength) {
-    var i = 0
-    var len = 0
-    var tag = false
-    var char = false
+    let i = 0
+    let len = 0
+    let tag = false
+    let char = false
     while (i < input.length && len < maxLength) {
         if (input[i] === '<') {
             tag = true
@@ -72,7 +67,7 @@ function htmlSnippet(input, maxLength) {
         i++
     }
 
-    var output = _.trim(input.slice(0, i))
+    let output = _.trim(input.slice(0, i))
     if (i < input.length || !output) {
         output += '...'
     }

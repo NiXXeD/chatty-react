@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Theme from './Theme'
@@ -9,7 +9,7 @@ import {fetchChatty} from '../actions/chatty'
 import {filter} from 'lodash'
 
 import './App.scss'
-class App extends Component {
+class App extends React.PureComponent {
     render() {
         let { chatty: { isFetching, posts, threads }} = this.props
 

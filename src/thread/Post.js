@@ -30,7 +30,7 @@ class Post extends React.PureComponent {
                 <div className="actionbar">
                     <CloseIcon className="actionItem"
                                title="Collapse post"
-                               onClick={() => this.props.collapseReply(post.id)}/>
+                               onClick={() => this.props.collapseReply(post.threadId, post.id)}/>
                     <ReplyIcon className="actionItem"
                                title="Reply to post"/>
                     {/*<i className="actionItem fa fa-comment" title="Reply to post" />*/}

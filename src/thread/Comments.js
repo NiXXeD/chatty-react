@@ -7,7 +7,7 @@ import {isEqual} from 'lodash'
 import './Comments.scss'
 class Comments extends React.PureComponent {
     render() {
-        let {post, posts} = this.props
+        let {thread, post, posts} = this.props
 
         return <ul className="Comments">
             {post.replies.map(replyId => {
@@ -15,18 +15,18 @@ class Comments extends React.PureComponent {
 
                 return <li key={reply.id}>
                     {
-                        (reply.expanded) ?
+                        (thread.expandedReply === reply.id) ?
                             <div className="replyPost"><Post post={reply}/></div> :
                             <div>
                                 <span className="oneline oneline9"
-                                      onClick={() => this.props.expandReply(reply.id)}>
+                                      onClick={() => this.props.expandReply(reply.threadId, reply.id)}>
                                     {reply.oneline}
                                 </span>
                                 <span className="commentSeparator">:</span>
                                 <span className="user">{reply.author}</span>
                             </div>
                     }
-                    <Self post={reply} posts={posts}/>
+                    <Self thread={thread} post={reply} posts={posts}/>
                 </li>
             })}
         </ul>

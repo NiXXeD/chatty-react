@@ -15,7 +15,7 @@ class Thread extends React.PureComponent {
             {/*reply box*/}
 
             <div className="CommentsContainer">
-                <Comments post={post} posts={posts} />
+                <Comments thread={post} post={post} posts={posts}/>
             </div>
         </div>
     }
