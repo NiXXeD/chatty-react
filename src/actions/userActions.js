@@ -3,7 +3,7 @@ export const expandReply = (threadId, postId) => ({
     delta: {
         posts: {
             [threadId]: {
-                expandedReply: postId
+                expandedReplyId: postId
             }
         }
     }
@@ -14,7 +14,29 @@ export const collapseReply = (threadId, postId) => ({
     delta: {
         posts: {
             [threadId]: {
-                expandedReply: null
+                expandedReplyId: null
+            }
+        }
+    }
+})
+
+export const showReplyBox = (threadId, postId) => ({
+    type: 'SHOW_REPLY_BOX',
+    delta: {
+        posts: {
+            [threadId]: {
+                replyBoxOpenForId: postId
+            }
+        }
+    }
+})
+
+export const hideReplyBox = (threadId, postId) => ({
+    type: 'HIDE_REPLY_BOX',
+    delta: {
+        posts: {
+            [threadId]: {
+                replyBoxOpenForId: null
             }
         }
     }

@@ -12,11 +12,17 @@ export const fetchChatty = () => {
 }
 
 export const requestChatty = () => ({
-    type: 'REQUEST_CHATTY'
+    type: 'REQUEST_CHATTY',
+    delta: {
+        isFetching: true
+    }
 })
 
 export const receiveChatty = threads => ({
     type: 'RECEIVE_CHATTY',
+    delta: {
+        isFetching: false
+    },
     threads
 })
 

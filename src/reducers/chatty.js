@@ -1,31 +1,33 @@
-import {chain, cloneDeep, filter, find, map, merge, pull, sortBy} from 'lodash'
+import {chain, cloneDeep, filter, find, includes, map, merge, pull, sortBy} from 'lodash'
 
+const deltaActions = [
+    'REQUEST_CHATTY',
+    'EXPAND_REPLY',
+    'COLLAPSE_REPLY',
+    'SHOW_REPLY_BOX',
+    'HIDE_REPLY_BOX'
+]
 function chatty(state = {}, action) {
-    switch (action.type) {
-        case 'REQUEST_CHATTY':
-            return Object.assign({}, state, {isFetching: true})
+    if (includes(deltaActions, action.type)) {
+        return merge({}, state, action.delta)
+    }
 
+    let delta
+    switch (action.type) {
         case 'RECEIVE_CHATTY':
-            return Object.assign({}, state, {
-                isFetching: false,
-                ...buildChatty(action.threads)
-            })
+            delta = action.delta
+            delta.posts = buildChattyPosts(action.threads)
+            return merge({}, state, delta)
 
         case 'EVENTS_RECEIVED':
 
-        case 'EXPAND_REPLY':
-            return merge({}, state, action.delta)
-
-        case 'COLLAPSE_REPLY':
-            return merge({}, state, action.delta)
-
-        default:
-            return state
     }
+
+    return state
 }
 
-function buildChatty(chatty) {
-    let posts = chain(chatty)
+function buildChattyPosts(chatty) {
+    return chain(chatty)
         .map('posts')
         .flatten()
         .map((post, index, array) => {
@@ -35,12 +37,10 @@ function buildChatty(chatty) {
         })
         .keyBy('id')
         .value()
-
-    return {posts}
 }
 
 function getSnippet(body) {
-    let stripped = body.replace(/<embed\-content url="([^"]+)" type="[^"]+"><\/embed\-content>/gi, '$1')
+    let stripped = body.replace(/<embed-content url="([^"]+)" type="[^"]+"><\/embed-content>/gi, '$1')
     stripped = stripped.replace(/(<(?!span)(?!\/span)[^>]+>| tabindex="1")/gm, ' ')
     return htmlSnippet(stripped, 106)
 }

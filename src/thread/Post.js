@@ -32,11 +32,8 @@ class Post extends React.PureComponent {
                                title="Collapse post"
                                onClick={() => this.props.collapseReply(post.threadId, post.id)}/>
                     <ReplyIcon className="actionItem"
-                               title="Reply to post"/>
-                    {/*<i className="actionItem fa fa-comment" title="Reply to post" />*/}
-                    {/*<a target="_blank">*/}
-                    {/*<i className="actionItem fa fa-bookmark" title="Open in tab" />*/}
-                    {/*</a>*/}
+                               title="Reply to post"
+                               onClick={() => this.props.showReplyBox(post.threadId, post.id)}/>
                     {/*<i className="actionItem fa fa-star" title="Pin to cloud" />*/}
                     {/*<a target="_blank">*/}
                     {/*<i className="actionItem fa fa-external-link" title="View at shacknews.com"/>*/}
