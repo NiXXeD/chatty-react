@@ -7,23 +7,23 @@
     border: 1px solid #6cb0c0;
     color: white;
     margin-right: 10px;
+}
 
-    td {
-        padding: 0 10px 0 10px;
-    }
+.tagLegend td {
+    padding: 0 10px 0 10px;
+}
 
-    h4 {
-        text-align: center;
-        margin: 0;
-    }
+.tagLegend h4 {
+    text-align: center;
+    margin: 0;
 }
 
 .tagLegendClicky {
     cursor: pointer;
+}
 
-    &:hover {
-        text-decoration: underline;
-    }
+.tagLegendClicky:hover {
+    text-decoration: underline;
 }
 
 .replybox {
@@ -54,8 +54,8 @@
 
 .replybox-actions {
     margin-left: 15px;
+}
 
-    button {
-        padding-right: 15px;
-    }
+.replybox-actions button {
+    padding-right: 15px;
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import Thread from '../thread/Thread'
-import {chain, filter} from 'lodash'
+import {chain} from 'lodash'
+import './Chatty.css'
 
-import './Chatty.scss'
 class Chatty extends React.PureComponent {
     render() {
         let {posts = []} = this.props

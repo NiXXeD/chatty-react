@@ -6,9 +6,8 @@ import Nav from '../nav/Nav'
 import LinearProgress from 'material-ui/LinearProgress'
 import Chatty from '../chatty/Chatty'
 import {fetchChatty} from '../actions/chatty'
-import {filter} from 'lodash'
 
-import './App.scss'
+import './App.css'
 class App extends React.PureComponent {
     render() {
         let { chatty: { isFetching, posts, threads }} = this.props

@@ -3,9 +3,8 @@ import {connect} from 'react-redux'
 import * as userActionCreators from '../actions/userActions'
 import Post from './Post'
 import ReplyBox from '../replyBox/ReplyBox'
-import {isEqual} from 'lodash'
+import './Comments.css'
 
-import './Comments.scss'
 class Comments extends React.PureComponent {
     render() {
         let {thread, post, posts} = this.props

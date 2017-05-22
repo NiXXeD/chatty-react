@@ -2,8 +2,8 @@ import React from 'react'
 import Post from './Post'
 import Comments from './Comments'
 import ReplyBox from '../replyBox/ReplyBox'
+import './Thread.css'
 
-import './Thread.scss'
 class Thread extends React.PureComponent {
     render() {
         let {post, posts} = this.props

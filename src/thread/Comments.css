@@ -57,15 +57,15 @@ ul {
     list-style-type: none;
     padding: 0;
     position: static;
+}
 
-    li {
-        background: url("./commentsbullet.gif") no-repeat 2px top;
-        font-size: 13px;
-        line-height: 16px;
-        padding-left: 13px;
+ul li {
+    background: url("./commentsbullet.gif") no-repeat 2px top;
+    font-size: 13px;
+    line-height: 16px;
+    padding-left: 13px;
+}
 
-        &:last-child {
-            background: #000 url("./commentsbulletlast.gif") no-repeat 2px top;
-        }
-    }
+ul li:last-child {
+    background: #000 url("./commentsbulletlast.gif") no-repeat 2px top;
 }

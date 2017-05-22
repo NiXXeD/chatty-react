@@ -1,4 +1,4 @@
-import {chain, cloneDeep, filter, find, includes, map, merge, pull, sortBy} from 'lodash'
+import {chain, filter, includes, map, merge, trim} from 'lodash'
 
 const deltaActions = [
     'REQUEST_CHATTY',
@@ -20,6 +20,9 @@ function chatty(state = {}, action) {
             return merge({}, state, delta)
 
         case 'EVENTS_RECEIVED':
+
+            break;
+        default:
 
     }
 
@@ -67,7 +70,7 @@ function htmlSnippet(input, maxLength) {
         i++
     }
 
-    let output = _.trim(input.slice(0, i))
+    let output = trim(input.slice(0, i))
     if (i < input.length || !output) {
         output += '...'
     }

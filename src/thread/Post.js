@@ -4,8 +4,8 @@ import * as userActionCreators from '../actions/userActions'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
 import ReplyIcon from 'material-ui/svg-icons/content/reply'
 
-import './Post.scss'
-import './shacktags.scss'
+import './Post.css'
+import './shacktags.css'
 class Post extends React.PureComponent {
     render() {
         let {post} = this.props

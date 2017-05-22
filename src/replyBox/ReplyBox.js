@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import * as userActionCreators from '../actions/userActions'
 import {TagGroups} from './TagGroups'
 import FlatButton from 'material-ui/FlatButton'
+import './ReplyBox.css'
 
-import './ReplyBox.scss'
 class ReplyBox extends React.PureComponent {
     render() {
         let {thread, post} = this.props
