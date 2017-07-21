@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import chatty from './chatty'
 import settings from './settings'
 

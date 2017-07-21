@@ -1,23 +1,33 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
+import {BrowserRouter} from 'react-router-dom'
 import App from './app/App'
-import registerServiceWorker from './registerServiceWorker'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import configureStore from './configureStore'
-import './index.scss'
+import store from './store'
+import history from './history'
 
 // for material-ui tap events
 injectTapEventPlugin()
 
-// redux store
-const store = configureStore()
+function render(Component) {
+    ReactDOM.render(
+        (
+            <Provider store={store}>
+                <BrowserRouter history={history}>
+                    <Component/>
+                </BrowserRouter>
+            </Provider>
+        ),
+        document.getElementById('root')
+    )
+}
 
-// main app component
-const root = (
-    <Provider store={store}>
-        <App/>
-    </Provider>
-)
-ReactDOM.render(root, document.getElementById('root'))
-registerServiceWorker()
+render(App)
+
+if (module.hot) {
+    module.hot.accept('./app/App', () => {
+        const next = require('./app/App').default
+        render(next)
+    })
+}
