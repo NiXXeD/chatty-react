@@ -1,32 +1,39 @@
-import {chain, filter, includes, map, merge, trim} from 'lodash'
+import {chain, filter, map, trim} from 'lodash'
+import {RECEIVE_CHATTY, REQUEST_CHATTY, EVENTS_RECEIVED} from '../actionTypes/chatty'
 
-const deltaActions = [
-    'REQUEST_CHATTY',
-    'EXPAND_REPLY',
-    'COLLAPSE_REPLY',
-    'SHOW_REPLY_BOX',
-    'HIDE_REPLY_BOX'
-]
-function chatty(state = {}, action) {
-    if (includes(deltaActions, action.type)) {
-        return merge({}, state, action.delta)
-    }
+const initialState = {
+    posts: {},
+    threadIds: [],
+    collapsedThreads: [],
+    replyBoxOpenForId: null
+}
 
-    let delta
-    switch (action.type) {
-        case 'RECEIVE_CHATTY':
-            delta = action.delta
-            delta.posts = buildChattyPosts(action.threads)
-            return merge({}, state, delta)
+function chatty(state = initialState, action) {
+    let {type, payload} = action
 
-        case 'EVENTS_RECEIVED':
+    switch (type) {
+        // Chatty actions
+        case REQUEST_CHATTY:
+            return {...state, ...payload}
+        case RECEIVE_CHATTY:
+            let posts = buildChattyPosts(payload)
+            let threadIds = findThreadIds(posts)
+            return {...state, posts, threadIds}
+        case EVENTS_RECEIVED:
+            // TODO handle events
+            break
 
-            break;
         default:
-
+            return state
     }
+}
 
-    return state
+function findThreadIds(posts) {
+    return chain(posts)
+        .filter({parentId: 0})
+        .filter(post => !post.hidden)
+        .map('id')
+        .value()
 }
 
 function buildChattyPosts(chatty) {

@@ -1,12 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import * as userActionCreators from '../actions/userActions'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
 import ReplyIcon from 'material-ui/svg-icons/content/reply'
-
 import './Post.css'
 import './shacktags.css'
-class Post extends React.PureComponent {
+
+class Post extends React.Component {
     render() {
         let {post} = this.props
         let html = {__html: post.body}
@@ -30,7 +28,7 @@ class Post extends React.PureComponent {
                 <div className="actionbar">
                     <CloseIcon className="actionItem"
                                title="Collapse post"
-                               onClick={() => this.props.collapseReply(post.threadId, post.id)}/>
+                               onClick={this.props.onCollapse}/>
                     <ReplyIcon className="actionItem"
                                title="Reply to post"
                                onClick={() => this.props.showReplyBox(post.threadId, post.id)}/>
@@ -44,4 +42,4 @@ class Post extends React.PureComponent {
     }
 }
 
-export default connect(null, userActionCreators)(Post)
+export default Post

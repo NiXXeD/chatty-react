@@ -46,9 +46,11 @@
     font-family: sans-serif;
     cursor: pointer;
 
-    &:hover {
-        text-decoration: underline;
-    }
+
+}
+
+.user:hover {
+    text-decoration: underline;
 }
 
 .countdown-wrap {
@@ -112,6 +114,7 @@
     position: absolute;
     bottom: 2px;
     left: 17px;
+    padding-top: 8px;
 }
 
 .actionItem {

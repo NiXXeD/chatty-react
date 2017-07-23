@@ -1,0 +1,6 @@
+export const COLLAPSE_THREAD = 'thread/collapseThread'
+export const EXPAND_THREAD = 'thread/expandThread'
+export const EXPAND_REPLY = 'thread/expandReply'
+export const COLLAPSE_REPLY = 'thread/collapseReply'
+export const SHOW_REPLY_BOX = 'thread/showReplyBox'
+export const HIDE_REPLY_BOX = 'thread/hideReplyBox'

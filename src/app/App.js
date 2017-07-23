@@ -5,7 +5,7 @@ import Theme from './Theme'
 import Nav from '../nav/Nav'
 import Chatty from '../chatty/Chatty'
 
-class App extends React.PureComponent {
+class App extends React.Component {
     render() {
         return (
             <div>
@@ -18,7 +18,6 @@ class App extends React.PureComponent {
 
                             <Route component={Chatty}/>
                         </Switch>
-                        <Chatty/>
                     </div>
                 </MuiThemeProvider>
             </div>

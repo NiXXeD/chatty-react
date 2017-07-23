@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 
-class Nav extends React.PureComponent {
+class Nav extends React.Component {
     state = {
         open: false
     }
