@@ -1,15 +1,14 @@
 import {EVENTS_RECEIVED, RECEIVE_CHATTY, REQUEST_CHATTY} from '../actionTypes/chatty'
 
 export const fetchChatty = () => {
-    return dispatch => {
+    return async (dispatch, getStore, api) => {
         dispatch(requestChatty())
 
-        return fetch('https://winchatty.com/v2/getChatty?count=5')
-            .then(response => response.json())
-            .then(data => dispatch(receiveChatty(data.threads)))
-            // .then(() => fetch('https://winchatty.com/v2/getNewestEventId'))
-            // .then(response => response.json())
-            // .then(data => dispatch(waitForEvent(data.eventId)))
+        let data = await api.getChatty(5)
+        dispatch(receiveChatty(data.threads))
+        // .then(() => fetch('https://winchatty.com/v2/getNewestEventId'))
+        // .then(response => response.json())
+        // .then(data => dispatch(waitForEvent(data.eventId)))
     }
 }
 
@@ -18,15 +17,12 @@ export const receiveChatty = threads => ({type: RECEIVE_CHATTY, payload: threads
 export const eventsReceived = events => ({type: EVENTS_RECEIVED, payload: events})
 
 export const waitForEvent = lastEventId => {
-    return dispatch => {
-        return fetch(`https://winchatty.com/v2/waitForEvent?lastEventId=${lastEventId}`)
-            .then(response => response.json())
-            .then(data => {
-                dispatch(eventsReceived(data.events))
-                if (data.lastEventId) {
-                    dispatch(waitForEvent(data.lastEventId))
-                }
-            })
+    return async (dispatch, getStore, api) => {
+        let data = await api.waitForEvent(lastEventId)
+        dispatch(eventsReceived(data.events))
+        if (data.lastEventId) {
+            dispatch(waitForEvent(data.lastEventId))
+        }
     }
 }
 

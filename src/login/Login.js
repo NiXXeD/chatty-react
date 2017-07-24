@@ -43,15 +43,11 @@ class Login extends React.Component {
                                 tabIndex={99}
                                 type="button"
                                 secondary={true}
-                                onTouchTap={this.closeLogin}>
+                                onTouchTap={this.closeLogin}
+                            >
                                 Cancel
                             </FlatButton>
-
-                            <FlatButton
-                                type="submit"
-                                onTouchTap={this.login}>
-                                Login
-                            </FlatButton>
+                            <FlatButton type="submit">Login</FlatButton>
                         </div>
                     </form>
                 </Dialog>

@@ -6,6 +6,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 
+import WinChattyApi from './WinChattyApi'
 import history from './history'
 import reducer from './reducers'
 
@@ -18,7 +19,7 @@ const store = createStore(
     composeEnhancers(
         applyMiddleware(
             routerMiddleware(history),
-            thunk,
+            thunk.withExtraArgument(new WinChattyApi()),
 
             // Note: must be last in chain
             createLogger()
