@@ -21,38 +21,47 @@ class Login extends React.Component {
                     style={styles.loginDialog}
                     onRequestClose={this.closeLogin}
                     repositionOnUpdate={false}
-                    actions={[
-                        <FlatButton
-                            secondary={true}
-                            onTouchTap={this.closeLogin}>
-                            Cancel
-                        </FlatButton>,
-                        <FlatButton
-                            onTouchTap={this.login}>
-                            Login
-                        </FlatButton>
-                    ]}
                     open={this.state.loginOpen}
                 >
-                    <TextField
-                        name="username"
-                        floatingLabelText="Username"
-                        ref={this.focusInput}
-                        onChange={this.formChanged}
-                    />
-                    <br/>
-                    <TextField
-                        name="password"
-                        floatingLabelText="Password"
-                        type="password"
-                        onChange={this.formChanged}
-                    />
+                    <form name="loginForm" onSubmit={this.login}>
+                        <TextField
+                            name="username"
+                            floatingLabelText="Username"
+                            ref={this.focusInput}
+                            onChange={this.formChanged}
+                        />
+                        <br/>
+                        <TextField
+                            name="password"
+                            floatingLabelText="Password"
+                            type="password"
+                            onChange={this.formChanged}
+                        />
+
+                        <div style={styles.loginActionsContainer}>
+                            <FlatButton
+                                tabIndex={99}
+                                type="button"
+                                secondary={true}
+                                onTouchTap={this.closeLogin}>
+                                Cancel
+                            </FlatButton>
+
+                            <FlatButton
+                                type="submit"
+                                onTouchTap={this.login}>
+                                Login
+                            </FlatButton>
+                        </div>
+                    </form>
                 </Dialog>
             </div>
         )
     }
 
-    login = () => {
+    login = event => {
+        event.preventDefault()
+
         let {username, password} = this.state
         this.setState({loginOpen: false})
         this.props.onLogin(username, password)
@@ -70,6 +79,11 @@ const styles = {
     loginDialog: {
         margin: '0px calc((100vw - 500px) / 2)',
         width: '400px'
+    },
+    loginActionsContainer: {
+        marginTop: '16px',
+        display: 'flex',
+        justifyContent: 'space-between'
     }
 }
 
