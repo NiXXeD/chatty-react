@@ -2,17 +2,14 @@ import React from 'react'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
+import UserMenu from '../userMenu/UserMenu'
 
 class Nav extends React.Component {
     state = {
-        open: false
-    }
-
-    constructor(props) {
-        super(props)
-
-        this.openDrawer = this.openDrawer.bind(this)
-        this.closeDrawer = this.closeDrawer.bind(this)
+        drawerOpen: false,
+        loginOpen: false,
+        username: '',
+        password: ''
     }
 
     render() {
@@ -20,12 +17,14 @@ class Nav extends React.Component {
             <AppBar
                 title="React Chatty"
                 onLeftIconButtonTouchTap={this.openDrawer}
+                iconElementRight={<UserMenu/>}
             />
+
             <Drawer
                 containerClassName="NavDrawer"
                 docked={false}
-                open={this.state.open}
-                onRequestChange={open => this.setState({open})}
+                open={this.state.drawerOpen}
+                onRequestChange={open => this.setState({drawerOpen: open})}
             >
                 <MenuItem onTouchTap={this.closeDrawer}>Menu Item 1</MenuItem>
                 <MenuItem onTouchTap={this.closeDrawer}>Menu Item 2</MenuItem>
@@ -34,13 +33,8 @@ class Nav extends React.Component {
         </div>
     }
 
-    openDrawer() {
-        this.setState({open: true})
-    }
-
-    closeDrawer() {
-        this.setState({open: false})
-    }
+    openDrawer = () => this.setState({drawerOpen: true})
+    closeDrawer = () => this.setState({drawerOpen: false})
 }
 
 export default Nav

@@ -33,7 +33,7 @@ class ReplyBox extends React.Component {
                                     <span className={tagGroup[0].tag_class}>{tagGroup[0].name}</span>
                                 </td>,
                                 <td className="tagLegendClicky">
-                                    <span>{`${tagGroup[0].open} ... ${tagGroup[0].close}`}</span>
+                                    <span>{`${tagGroup[0].drawerOpen} ... ${tagGroup[0].close}`}</span>
                                 </td>
                             ])
                         )}
