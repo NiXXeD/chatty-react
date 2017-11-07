@@ -1,6 +1,7 @@
 {
   "name": "chatty-react",
   "version": "0.1.0",
+  "license": "MIT",
   "dependencies": {
     "connected-react-router": "^4.2.3",
     "history": "^4.6.3",
