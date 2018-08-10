@@ -1,40 +1,46 @@
 import React from 'react'
-import AppBar from 'material-ui/AppBar'
-import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import {withStyles} from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import UserMenu from '../userMenu/UserMenu'
 
 class Nav extends React.Component {
-    state = {
-        drawerOpen: false,
-        loginOpen: false,
-        username: '',
-        password: ''
-    }
-
     render() {
-        return <div>
-            <AppBar
-                title="React Chatty"
-                onLeftIconButtonTouchTap={this.openDrawer}
-                iconElementRight={<UserMenu/>}
-            />
+        const {classes} = this.props
 
-            <Drawer
-                containerClassName="NavDrawer"
-                docked={false}
-                open={this.state.drawerOpen}
-                onRequestChange={open => this.setState({drawerOpen: open})}
-            >
-                <MenuItem onTouchTap={this.closeDrawer}>Menu Item 1</MenuItem>
-                <MenuItem onTouchTap={this.closeDrawer}>Menu Item 2</MenuItem>
-                <MenuItem onTouchTap={this.closeDrawer}>Menu Item 3</MenuItem>
-            </Drawer>
-        </div>
+        return (
+            <React.Fragment>
+                <AppBar elevation={0}>
+                    <Toolbar>
+                        <IconButton className={classes.menuButton} onClick={this.openDrawer}>
+                            <MenuIcon className={classes.white}/>
+                        </IconButton>
+
+                        <Typography variant='headline' className={classes.title}>React Chatty</Typography>
+
+                        <UserMenu/>
+                    </Toolbar>
+                </AppBar>
+            </React.Fragment>
+        )
     }
-
-    openDrawer = () => this.setState({drawerOpen: true})
-    closeDrawer = () => this.setState({drawerOpen: false})
 }
 
-export default Nav
+const styles = {
+    white: {
+        color: '#fff'
+    },
+    title: {
+        color: '#fff',
+        flex: 1
+    },
+    menuButton: {
+        marginLeft: -15,
+        marginRight: 8
+    }
+}
+
+export default withStyles(styles)(Nav)

@@ -1,44 +1,43 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import FlatButton from 'material-ui/FlatButton'
-import Login from '../login/Login'
-import IconMenu from 'material-ui/IconMenu'
-import MenuItem from 'material-ui/MenuItem'
-import {login, logout} from '../actions/auth'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import LoginButton from '../auth/LoginButton'
+import LogoutButton from '../auth/LogoutButton'
+import IconButton from '@material-ui/core/IconButton'
+import Divider from '@material-ui/core/Divider'
+import PersonIcon from '@material-ui/icons/Person'
+import withAuth from '../context/auth/withAuth'
 
 class UserMenu extends React.Component {
+    state = {open: false}
+
+    handleClick = event => this.setState({open: true, anchorEl: event.target})
+    handleClose = () => this.setState({open: false})
+
     render() {
-        let {username} = this.props.auth
-        if (username) {
-            return (
-                <div>
-                    <IconMenu
-                        style={styles.userMenuButton}
-                        iconButtonElement={<FlatButton>{username}</FlatButton>}
-                        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                    >
-                        <MenuItem
-                            primaryText="Logout"
-                            onTouchTap={this.props.logout}
-                        />
-                    </IconMenu>
-                </div>
-            )
-        } else {
-            return <Login onLogin={this.props.login}/>
-        }
+        const {open, anchorEl} = this.state
+        const {isLoggedIn} = this.props
+
+        if (!isLoggedIn) return <LoginButton/>
+        return (
+            <React.Fragment>
+                <IconButton onClick={this.handleClick}>
+                    <PersonIcon style={{color: '#fff'}}/>
+                </IconButton>
+
+                <Menu
+                    keepMounted
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={this.handleClose}
+                >
+                    <MenuItem disabled>{this.props.username}</MenuItem>
+                    <Divider/>
+                    <LogoutButton/>
+                </Menu>
+            </React.Fragment>
+        )
     }
 }
 
-const styles = {
-    userMenuButton: {
-        marginTop: '6px'
-    }
-}
-
-const mapStateToProps = state => ({
-    auth: state.auth
-})
-const mapDispatchToProps = {login, logout}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu)
+export default withAuth(UserMenu)

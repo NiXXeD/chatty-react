@@ -1,9 +1,17 @@
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
-import {grey200, green700, green800} from 'material-ui/styles/colors'
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
-darkBaseTheme.palette.primary1Color = green800
-darkBaseTheme.palette.primary2Color = green700
-darkBaseTheme.palette.alternateTextColor = grey200
-
-export default getMuiTheme(darkBaseTheme)
+export default createMuiTheme({
+    palette: {
+        type: 'dark',
+        primary: {
+            light: '#6fbf73',
+            main: '#357a38',
+            dark: '#357a38'
+        },
+        secondary: {
+            light: '#33eaff',
+            main: '#00e5ff',
+            dark: '#00a0b2'
+        }
+    }
+})

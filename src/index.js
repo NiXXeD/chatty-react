@@ -1,33 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
-import {BrowserRouter} from 'react-router-dom'
-import App from './app/App'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import store from './store'
+import {Router} from 'react-router-dom'
 import history from './history'
-
-// for material-ui tap events
-injectTapEventPlugin()
+import Root from './app/Root'
 
 function render(Component) {
     ReactDOM.render(
         (
-            <Provider store={store}>
-                <BrowserRouter history={history}>
-                    <Component/>
-                </BrowserRouter>
-            </Provider>
+            <Router history={history}>
+                <Component/>
+            </Router>
         ),
         document.getElementById('root')
     )
 }
 
-render(App)
+render(Root)
 
 if (module.hot) {
-    module.hot.accept('./app/App', () => {
-        const next = require('./app/App').default
+    module.hot.accept('./app/Root', () => {
+        const next = require('./app/Root').default
         render(next)
     })
 }
