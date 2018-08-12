@@ -3,6 +3,7 @@ import {MuiThemeProvider} from '@material-ui/core/styles'
 import Theme from './Theme'
 import App from './App'
 import AuthProvider from '../context/auth/AuthProvider'
+import ChattyProvider from '../context/chatty/ChattyProvider'
 
 class Root extends React.Component {
     render() {
@@ -11,7 +12,9 @@ class Root extends React.Component {
                 <style>{rootStyle}</style>
                 <MuiThemeProvider theme={Theme}>
                     <AuthProvider>
-                        <App/>
+                        <ChattyProvider>
+                            <App/>
+                        </ChattyProvider>
                     </AuthProvider>
                 </MuiThemeProvider>
             </React.Fragment>

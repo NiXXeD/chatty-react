@@ -1,14 +1,15 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import Post from './Post'
-import ReplyBox from '../replyBox/ReplyBox'
+// import ReplyBox from '../replyBox/ReplyBox'
 import './Comments.css'
+import OneLine from './OneLine'
 
-class Comments extends React.Component {
+class Comments extends React.PureComponent {
+    state = {}
+
     render() {
-        let {
-            thread, expandedReplyId, replyBoxOpenForId, replies = []
-        } = this.props
+        const {replies = []} = this.props
+        const {expandedReplyId} = this.state
 
         return (
             <ul className="Comments">
@@ -17,36 +18,23 @@ class Comments extends React.Component {
                         <li key={reply.id}>
                             {
                                 expandedReplyId === reply.id ? (
-                                    <div>
+                                    <React.Fragment>
                                         <div className="replyPost">
                                             <Post
                                                 post={reply}
                                                 onCollapse={this.props.collapseReply}
                                             />
                                         </div>
-                                        {
-                                            replyBoxOpenForId === reply.id &&
-                                            <ReplyBox thread={thread} post={reply}/>
-                                        }
-                                    </div>
+                                        {/*{*/}
+                                        {/*replyBoxOpenForId === reply.id &&*/}
+                                        {/*<ReplyBox thread={thread} post={reply}/>*/}
+                                        {/*}*/}
+                                    </React.Fragment>
                                 ) : (
-                                    <div>
-                                        <span className="oneline oneline9"
-                                              onClick={() => this.props.expandReply(reply.id)}>
-                                            {reply.oneline}
-                                        </span>
-                                        <span className="commentSeparator">:</span>
-                                        <span className="user">{reply.author}</span>
-                                    </div>
+                                    <OneLine post={reply}/>
                                 )
                             }
-                            <Self
-                                thread={thread}
-                                replyIds={reply.replies}
-                                expandedReplyId={expandedReplyId}
-                                expandReply={this.props.expandReply}
-                                collapseReply={this.props.collapseReply}
-                            />
+                            <Comments replies={reply.posts}/>
                         </li>
                     )
                 }
@@ -55,8 +43,4 @@ class Comments extends React.Component {
     }
 }
 
-const mapStateToProps = (state, props) => ({
-    replies: props.replyIds.map(replyId => state.chatty.posts[replyId])
-})
-const Self = connect(mapStateToProps)(Comments)
-export default Self
+export default Comments

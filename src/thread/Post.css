@@ -15,10 +15,6 @@
 .postheader {
     background-color: #373a3c;
     padding: 3px 3px 3px 20px;
-
-    .user {
-        line-height: 18px;
-    }
 }
 
 .headerright {
@@ -97,17 +93,16 @@
     font-size: 13px;
     line-height: 16px;
     margin: 5px 22px 5px 22px;
+}
 
-    a:link,
-    a:visited,
-    a:active {
-        text-decoration: underline;
-        color: #aeae9b;
-    }
-
-    a:hover {
-        color: #fff;
-    }
+.postBody.a:link,
+.postBody.a:visited,
+.postBody.a:active {
+    text-decoration: underline;
+    color: #aeae9b;
+}
+.postBody a:hover {
+    color: #fff;
 }
 
 .actionbar {
@@ -120,8 +115,8 @@
 .actionItem {
     color: white;
     cursor: pointer;
+}
 
-    &:hover {
-        color: #00bff3!important;
-    }
+.actionItem:hover {
+    color: #00bff3!important;
 }

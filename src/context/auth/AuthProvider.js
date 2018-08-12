@@ -6,19 +6,19 @@ class AuthProvider extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        let username, password
-        try {
-            const storageValue = localStorage.getItem('auth') || '{}'
-            const auth = JSON.parse(storageValue) || {}
-            username = auth.username
-            password = auth.password
-        } catch (ex) {
-            console.log('Invalid storage value: auth', ex)
-        }
-
+        const {username, password} = this.loadStorage()
         this.state = {
             isLoggedIn: (username && password),
             username, password
+        }
+    }
+
+    loadStorage() {
+        try {
+            const storageValue = localStorage.getItem('auth') || '{}'
+            return JSON.parse(storageValue) || {}
+        } catch (ex) {
+            console.log('Invalid storage value: auth', ex)
         }
     }
 

@@ -1,62 +1,60 @@
 import React from 'react'
 import Post from './Post'
+import {find, sortBy, keyBy} from 'lodash'
 import Comments from './Comments'
-import ReplyBox from '../replyBox/ReplyBox'
-import {connect} from 'react-redux'
+// import ReplyBox from '../replyBox/ReplyBox'
 import './Thread.css'
 
-class Thread extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            collapsed: false,
-            expandedReplyId: null,
-            replyBoxOpenForId: null
-        }
+class Thread extends React.PureComponent {
+    state = {
+        thread: {},
+        replies: []
     }
 
-    expandReply = expandedReplyId => this.setState({expandedReplyId})
-    collapseReply = () => this.setState({expandedReplyId: null})
-    collapseThread = () => this.setState({collapsed: true})
+    componentDidMount() {
+        const {thread: rawThread} = this.props
+
+        const posts = sortBy(rawThread.posts, 'id')
+        const postsById = keyBy(posts, 'id')
+
+        const thread = find(posts, {parentId: 0})
+        posts.forEach(post => {
+            if (post.parentId) {
+                const parent = postsById[post.parentId]
+                parent.posts = parent.posts || []
+                parent.posts.push(post)
+            }
+        })
+        const replies = posts.filter(post => post.parentId === thread.id)
+
+        this.setState({thread, replies})
+    }
 
     render() {
-        let {thread} = this.props
-        let {collapsed, expandedReplyId, replyBoxOpenForId} = this.state
+        let {thread, replies} = this.state
 
-        if (collapsed) {
-            return null
-        } else {
-            return (
-                <div className="Thread">
-                    <div className="rootPost">
-                        <Post
-                            post={thread}
-                            onCollapse={this.collapseThread}
-                        />
-                    </div>
-
-                    {
-                        replyBoxOpenForId === thread.id &&
-                        <ReplyBox thread={thread} post={thread}/>
-                    }
-
-                    <div className="CommentsContainer">
-                        <Comments
-                            thread={thread}
-                            replyIds={thread.replies}
-                            expandedReplyId={expandedReplyId}
-                            expandReply={this.expandReply}
-                            collapseReply={this.collapseReply}
-                        />
-                    </div>
+        return (
+            <div className="Thread">
+                <div className="rootPost">
+                    <Post
+                        post={thread}
+                        onCollapse={this.collapseThread}
+                    />
                 </div>
-            )
-        }
+
+                {/*{*/}
+                {/*replyBoxOpenForId === thread.id &&*/}
+                {/*<ReplyBox thread={thread} post={thread}/>*/}
+                {/*}*/}
+
+                <div className="CommentsContainer">
+                    <Comments
+                        replies={replies}
+                    />
+                </div>
+            </div>
+        )
     }
 }
 
-const mapStateToProps = (state, props) => ({
-    thread: state.chatty.posts[props.threadId]
-})
-export default connect(mapStateToProps)(Thread)
+export default Thread
