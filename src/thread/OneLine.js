@@ -48,13 +48,19 @@ class OneLine extends React.PureComponent {
         this.setState({author, oneline})
     }
 
+    handleClick = () => {
+        const {post, onExpandReply} = this.props
+        onExpandReply(post.id)
+    }
+
     render() {
         const {author, oneline} = this.state
         return (
             <React.Fragment>
-                <span className="oneline oneline9"
-                      dangerouslySetInnerHTML={{__html: oneline}}
-                    // onClick={() => this.props.expandReply(reply.id)}
+                <span
+                    className="oneline oneline9"
+                    dangerouslySetInnerHTML={{__html: oneline}}
+                    onClick={this.handleClick}
                 />
                 <span className="commentSeparator">:</span>
                 <span className="user">{author}</span>

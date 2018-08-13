@@ -8,7 +8,8 @@ import './Thread.css'
 class Thread extends React.PureComponent {
     state = {
         thread: {},
-        replies: []
+        replies: [],
+        expandedReplyId: null
     }
 
     componentDidMount() {
@@ -30,8 +31,10 @@ class Thread extends React.PureComponent {
         this.setState({thread, replies})
     }
 
+    handleExpandReply = expandedReplyId => this.setState({expandedReplyId})
+
     render() {
-        let {thread, replies} = this.state
+        let {thread, replies, expandedReplyId} = this.state
 
         return (
             <div className="Thread">
@@ -50,6 +53,8 @@ class Thread extends React.PureComponent {
                 <div className="CommentsContainer">
                     <Comments
                         replies={replies}
+                        expandedReplyId={expandedReplyId}
+                        onExpandReply={this.handleExpandReply}
                     />
                 </div>
             </div>

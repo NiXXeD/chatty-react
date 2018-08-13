@@ -8,8 +8,7 @@ class Comments extends React.PureComponent {
     state = {}
 
     render() {
-        const {replies = []} = this.props
-        const {expandedReplyId} = this.state
+        const {replies = [], onExpandReply, expandedReplyId} = this.props
 
         return (
             <ul className="Comments">
@@ -31,10 +30,14 @@ class Comments extends React.PureComponent {
                                         {/*}*/}
                                     </React.Fragment>
                                 ) : (
-                                    <OneLine post={reply}/>
+                                    <OneLine post={reply} onExpandReply={onExpandReply}/>
                                 )
                             }
-                            <Comments replies={reply.posts}/>
+                            <Comments
+                                replies={reply.posts}
+                                expandedReplyId={expandedReplyId}
+                                onExpandReply={onExpandReply}
+                            />
                         </li>
                     )
                 }
