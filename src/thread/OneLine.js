@@ -1,6 +1,8 @@
 import React from 'react'
 import {trim} from 'lodash'
 import PostAuthor from './PostAuthor'
+import {withStyles} from '@material-ui/core/styles'
+import classnames from 'classnames'
 
 class OneLine extends React.PureComponent {
     state = {
@@ -44,9 +46,9 @@ class OneLine extends React.PureComponent {
 
     componentDidMount() {
         const {post} = this.props
-        const {author, body} = post
+        const {body} = post
         const oneline = this.getSnippet(body)
-        this.setState({author, oneline})
+        this.setState({oneline})
     }
 
     handleClick = () => {
@@ -55,19 +57,68 @@ class OneLine extends React.PureComponent {
     }
 
     render() {
-        const {author, oneline} = this.state
+        const {classes, post} = this.props
+        const {oneline} = this.state
+        const lineClass = `oneline${post.recentReplyNumber || 9}`
+
         return (
             <React.Fragment>
                 <span
-                    className="oneline oneline9"
+                    className={classnames(classes.oneline, classes[lineClass])}
                     dangerouslySetInnerHTML={{__html: oneline}}
                     onClick={this.handleClick}
                 />
-                <span className="commentSeparator">:</span>
-                <PostAuthor author={author}/>
+                <span className={classes.separator}>:</span>
+                <PostAuthor author={post.author}/>
             </React.Fragment>
         )
     }
 }
 
-export default OneLine
+const styles = {
+    separator: {
+        padding: '0 3px',
+        fontSize: 11,
+        color: '#fff'
+    },
+    oneline: {
+        '&:hover': {
+            color: '#fff',
+            backgroundColor: '#233548',
+            cursor: 'pointer'
+        }
+    },
+    oneline10: {
+        color: '#777'
+    },
+    oneline9: {
+        color: '#888'
+    },
+    oneline8: {
+        color: '#999'
+    },
+    oneline7: {
+        color: '#aaa'
+    },
+    oneline6: {
+        color: '#bbb'
+    },
+    oneline5: {
+        color: '#ccc'
+    },
+    oneline4: {
+        color: '#ddd'
+    },
+    oneline3: {
+        color: '#eee'
+    },
+    oneline2: {
+        color: '#fff'
+    },
+    oneline1: {
+        color: '#eee',
+        fontWeight: 'bold'
+    }
+}
+
+export default withStyles(styles)(OneLine)

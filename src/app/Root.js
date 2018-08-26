@@ -4,34 +4,22 @@ import Theme from './Theme'
 import App from './App'
 import AuthProvider from '../context/auth/AuthProvider'
 import ChattyProvider from '../context/chatty/ChattyProvider'
+import './global.css'
+import './shacktags.css'
+import './comment_tree.css'
 
 class Root extends React.Component {
     render() {
         return (
-            <React.Fragment>
-                <style>{rootStyle}</style>
-                <MuiThemeProvider theme={Theme}>
-                    <AuthProvider>
-                        <ChattyProvider>
-                            <App/>
-                        </ChattyProvider>
-                    </AuthProvider>
-                </MuiThemeProvider>
-            </React.Fragment>
+            <MuiThemeProvider theme={Theme}>
+                <AuthProvider>
+                    <ChattyProvider>
+                        <App/>
+                    </ChattyProvider>
+                </AuthProvider>
+            </MuiThemeProvider>
         )
     }
 }
-
-const rootStyle = `
-    body {
-        background-color: black;
-        margin: 0;
-        padding: 0;
-    }
-
-    a {
-        color: #aeae9b;
-    }
-`
 
 export default Root

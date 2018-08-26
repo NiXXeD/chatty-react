@@ -1,7 +1,6 @@
 import React from 'react'
 import Post from './Post'
 // import ReplyBox from '../replyBox/ReplyBox'
-import './Comments.css'
 import OneLine from './OneLine'
 
 class Comments extends React.PureComponent {

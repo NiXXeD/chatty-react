@@ -10,7 +10,6 @@ import {withStyles} from '@material-ui/core/styles'
 import PostExpirationBar from './PostExpirationBar'
 import PostDate from './PostDate'
 import PostAuthor from './PostAuthor'
-import './shacktags.css'
 
 class Post extends React.PureComponent {
     render() {

@@ -27,6 +27,7 @@ class Thread extends React.PureComponent {
                 parent.posts.push(post)
             }
         })
+        posts.slice(-10).reverse().forEach((post, index) => post.recentReplyNumber = index + 1)
         const replies = posts.filter(post => post.parentId === thread.id)
 
         this.setState({thread, replies})
