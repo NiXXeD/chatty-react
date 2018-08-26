@@ -2,8 +2,7 @@ import React from 'react'
 import Post from './Post'
 import {find, sortBy, keyBy} from 'lodash'
 import Comments from './Comments'
-// import ReplyBox from '../replyBox/ReplyBox'
-import './Thread.css'
+import {withStyles} from '@material-ui/core/styles'
 
 class Thread extends React.PureComponent {
     state = {
@@ -38,32 +37,32 @@ class Thread extends React.PureComponent {
     handleCollapse = () => this.setState({collapsed: true})
 
     render() {
-        let {collapsed, thread, replies, expandedReplyId} = this.state
+        const {classes} = this.props
+        const {collapsed, thread, replies, expandedReplyId} = this.state
         if (collapsed) return null
 
         return (
-            <div className="Thread">
+            <div className={classes.thread}>
                 <Post
                     post={thread}
                     onCollapse={this.handleCollapse}
                 />
 
-                {/*{*/}
-                {/*replyBoxOpenForId === thread.id &&*/}
-                {/*<ReplyBox thread={thread} post={thread}/>*/}
-                {/*}*/}
-
-                <div className="CommentsContainer">
-                    <Comments
-                        replies={replies}
-                        expandedReplyId={expandedReplyId}
-                        onExpandReply={this.handleExpandReply}
-                        onCollapseReply={this.handleCollapseReply}
-                    />
-                </div>
+                <Comments
+                    replies={replies}
+                    expandedReplyId={expandedReplyId}
+                    onExpandReply={this.handleExpandReply}
+                    onCollapseReply={this.handleCollapseReply}
+                />
             </div>
         )
     }
 }
 
-export default Thread
+const styles = {
+    thread: {
+        marginBottom: 15
+    }
+}
+
+export default withStyles(styles)(Thread)

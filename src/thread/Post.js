@@ -10,14 +10,24 @@ import {withStyles} from '@material-ui/core/styles'
 import PostExpirationBar from './PostExpirationBar'
 import PostDate from './PostDate'
 import PostAuthor from './PostAuthor'
+import classnames from 'classnames'
 
 class Post extends React.PureComponent {
     render() {
-        let {classes, post, onCollapse, onReply} = this.props
-        let html = {__html: post.body}
+        const {classes, post, onCollapse, onReply} = this.props
+        const html = {__html: post.body}
+        let tagClass
+        if (post.category === 'nws') {
+            tagClass = 'tagNws'
+        } else if (post.category === 'informative') {
+            tagClass = 'tagInformative'
+        } else if (/shacknews/i.test(post.author)) {
+            tagClass = 'tagFrontpage'
+        }
+        let replyBorder = post.parentId > 0 ? 'replyBorder' : null
 
         return (
-            <Card className={classes.card}>
+            <Card className={classnames(classes.card, classes[tagClass], classes[replyBorder])}>
                 <div className={classes.header}>
                     <PostAuthor author={post.author}/>
 
@@ -58,7 +68,21 @@ class Post extends React.PureComponent {
 
 const styles = {
     card: {
-        backgroundColor: '#202224'
+        backgroundColor: '#202224',
+        borderRadius: 0,
+        marginBottom: 3
+    },
+    replyBorder: {
+        border: '1px solid #656565'
+    },
+    tagNws: {
+        borderLeft: '3px solid red !important'
+    },
+    tagInformative: {
+        borderLeft: '3px solid #00bff3 !important'
+    },
+    tagFrontpage: {
+        borderLeft: '3px solid mediumpurple !important'
     },
     content: {
         color: 'lightgray',
