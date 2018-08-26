@@ -9,7 +9,8 @@ class Thread extends React.PureComponent {
         thread: {},
         collapsed: false,
         replies: [],
-        expandedReplyId: null
+        expandedReplyId: null,
+        replyBoxOpenForId: null
     }
 
     componentDidMount() {
@@ -20,6 +21,7 @@ class Thread extends React.PureComponent {
 
         const thread = find(posts, {parentId: 0})
         posts.forEach(post => {
+            post.thread = thread
             if (post.parentId) {
                 const parent = postsById[post.parentId]
                 parent.posts = parent.posts || []
@@ -32,27 +34,35 @@ class Thread extends React.PureComponent {
         this.setState({thread, replies})
     }
 
-    handleCollapseReply = () => this.setState({expandedReplyId: null})
-    handleExpandReply = expandedReplyId => this.setState({expandedReplyId})
-    handleCollapse = () => this.setState({collapsed: true})
+    handleCollapseReply = () => this.setState({expandedReplyId: null, replyBoxOpenForId: null})
+    handleExpandReply = expandedReplyId => this.setState({expandedReplyId, replyBoxOpenForId: null})
+    handleCollapse = () => this.setState({collapsed: true, replyBoxOpenForId: null})
+    handleOpenReplyBox = id => this.setState({replyBoxOpenForId: id})
+    handleCloseReplyBox = () => this.setState({replyBoxOpenForId: null})
 
     render() {
         const {classes} = this.props
-        const {collapsed, thread, replies, expandedReplyId} = this.state
+        const {collapsed, thread, replies, expandedReplyId, replyBoxOpenForId} = this.state
         if (collapsed) return null
 
         return (
             <div className={classes.thread}>
                 <Post
                     post={thread}
+                    replyBoxOpenForId={replyBoxOpenForId}
                     onCollapse={this.handleCollapse}
+                    onOpenReplyBox={this.handleOpenReplyBox}
+                    onCloseReplyBox={this.handleCloseReplyBox}
                 />
 
                 <Comments
                     replies={replies}
                     expandedReplyId={expandedReplyId}
+                    replyBoxOpenForId={replyBoxOpenForId}
                     onExpandReply={this.handleExpandReply}
                     onCollapseReply={this.handleCollapseReply}
+                    onOpenReplyBox={this.handleOpenReplyBox}
+                    onCloseReplyBox={this.handleCloseReplyBox}
                 />
             </div>
         )

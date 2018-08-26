@@ -1,4 +1,4 @@
-ul {
+ul.comments {
     background: url("../resources/commentsul.gif") repeat-y 2px bottom;
     margin: 0 0 0 5px;
     list-style-type: none;
@@ -6,13 +6,13 @@ ul {
     position: static;
 }
 
-ul li {
+ul.comments li {
     background: url("../resources/commentsbullet.gif") no-repeat 2px top;
     font-size: 13px;
     line-height: 16px;
     padding-left: 13px;
 }
 
-ul li:last-child {
+ul.comments li:last-child {
     background: #000 url("../resources/commentsbulletlast.gif") no-repeat 2px top;
 }

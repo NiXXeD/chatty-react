@@ -1,6 +1,7 @@
 import React from 'react'
 import AuthContext from './AuthContext'
 import fetchJson from '../../util/fetchJson'
+import querystring from 'querystring'
 
 class AuthProvider extends React.PureComponent {
     constructor(props) {
@@ -27,7 +28,7 @@ class AuthProvider extends React.PureComponent {
             let result = await fetchJson(`verifyCredentials`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                body: querystring.stringify({username, password})
             })
             if (result.isValid) {
                 localStorage.setItem('auth', JSON.stringify({username, password}))

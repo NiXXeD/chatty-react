@@ -1,48 +1,106 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import * as threadActionCreators from '../actions/thread'
-import {TagGroups} from './TagGroups'
-import FlatButton from 'material-ui/FlatButton'
-import './ReplyBox.css'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import {withStyles} from '@material-ui/core/styles'
+import Input from '@material-ui/core/Input'
+import fetchJson from '../util/fetchJson'
+import withAuth from '../context/auth/withAuth'
+import querystring from 'querystring'
 
 class ReplyBox extends React.Component {
+    state = {
+        text: '',
+        posting: false
+    }
+
+    handleChange = event => this.setState({text: event.target.value})
+
+    handleSubmit = async () => {
+        // TODO: loading indicator
+        try {
+            this.setState({posting: true})
+            const {username, password, parentId} = this.props
+            const {text} = this.state
+            let response = await fetchJson('postComment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: querystring.stringify({username, password, parentId, text})
+            })
+            if (response.result === 'success') {
+                this.props.onCloseReplyBox()
+                // TODO: toast user
+            }
+        } catch (ex) {
+            console.log('Error while posting comment', ex)
+            // TODO: toast user
+            return false
+        } finally {
+            this.setState({posting: false})
+        }
+    }
+
     render() {
-        let {thread, post} = this.props
+        const {classes, onCloseReplyBox} = this.props
+        const {posting, text} = this.state
 
-        return <div className={`replybox ${thread.id === post.id ? 'replybox-op' : 'replybox-comment'}`}>
-            <form>
-                <textarea className="replybox-input"
-                          placeholder="Type something interesting..."
-                          name="replyBody"
-                          required/>
-
-                <br/>
-
-                <div className="replybox-actions">
-                    <FlatButton label="Submit"/>
-                    <FlatButton label="Cancel" onClick={() => this.props.hideReplyBox(thread.id, post.id)}/>
-                </div>
-            </form>
-
-            <table className="tagLegend">
-                <tbody>
-                {TagGroups.map((tagGroup, index) =>
-                    <tr key={index}>
-                        {tagGroup.map(tag => ([
-                                <td>
-                                    <span className={tagGroup[0].tag_class}>{tagGroup[0].name}</span>
-                                </td>,
-                                <td className="tagLegendClicky">
-                                    <span>{`${tagGroup[0].drawerOpen} ... ${tagGroup[0].close}`}</span>
-                                </td>
-                            ])
-                        )}
-                    </tr>
-                )}
-                </tbody>
-            </table>
-        </div>
+        return (
+            <Card className={classes.card}>
+                <CardContent>
+                    <div className={classes.flexRow}>
+                        <Input
+                            multiline
+                            autoFocus
+                            disableUnderline
+                            rows={5}
+                            fullWidth
+                            className={classes.textarea}
+                            placeholder='Type something interesting...'
+                            name='replyBody'
+                            required
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                </CardContent>
+                <CardActions className={classes.actions}>
+                    <Button
+                        color='primary'
+                        variant='outlined'
+                        disabled={posting || !text.length}
+                        onClick={this.handleSubmit}
+                    >Post
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={onCloseReplyBox}
+                    >Cancel
+                    </Button>
+                </CardActions>
+            </Card>
+        )
     }
 }
 
-export default connect(null, threadActionCreators)(ReplyBox)
+const styles = {
+    card: {
+        backgroundColor: '#202224',
+        marginTop: -3,
+        borderRadius: 0,
+        border: '1px solid #656565'
+    },
+    actions: {
+        margin: '-8px 0 8px 8px'
+    },
+    flexRow: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    textarea: {
+        flex: 1,
+        backgroundColor: '#000',
+        padding: 4
+    }
+}
+
+export default withAuth(withStyles(styles)(ReplyBox))

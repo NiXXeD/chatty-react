@@ -69,7 +69,7 @@ class OneLine extends React.PureComponent {
                     onClick={this.handleClick}
                 />
                 <span className={classes.separator}>:</span>
-                <PostAuthor author={post.author}/>
+                <PostAuthor post={post}/>
             </React.Fragment>
         )
     }

@@ -7,7 +7,7 @@ class RefreshButton extends React.Component {
 
     render() {
         return (
-            <IconButton onClick={this.handleClick}>
+            <IconButton disabled onClick={this.handleClick}>
                 <RefreshIcon/>
             </IconButton>
         )

@@ -25,3 +25,31 @@ export const TagGroups = [
         {name: 'code', tag_class: 'jt_codesmall', open: '/{{', close: '}}/'}
     ]
 ]
+
+// .tagLegend {
+//     position: absolute;
+//     top: 18px;
+//     left: 50%;
+//     margin-left: 35px;
+//     padding: 5px;
+//     border: 1px solid #6cb0c0;
+//     color: white;
+//     margin-right: 10px;
+// }
+//
+// .tagLegend td {
+//     padding: 0 10px 0 10px;
+// }
+//
+// .tagLegend h4 {
+//     text-align: center;
+//     margin: 0;
+// }
+//
+// .tagLegendClicky {
+//     cursor: pointer;
+// }
+//
+// .tagLegendClicky:hover {
+//     text-decoration: underline;
+// }

@@ -11,10 +11,13 @@ import PostExpirationBar from './PostExpirationBar'
 import PostDate from './PostDate'
 import PostAuthor from './PostAuthor'
 import classnames from 'classnames'
+import ReplyBox from '../replyBox/ReplyBox'
 
 class Post extends React.PureComponent {
+    handleReplyClick = () => this.props.onOpenReplyBox(this.props.post.id)
+
     render() {
-        const {classes, post, onCollapse, onReply} = this.props
+        const {classes, post, onCollapse, replyBoxOpenForId, onCloseReplyBox} = this.props
         const html = {__html: post.body}
         let tagClass
         if (post.category === 'nws') {
@@ -27,41 +30,45 @@ class Post extends React.PureComponent {
         let replyBorder = post.parentId > 0 ? 'replyBorder' : null
 
         return (
-            <Card className={classnames(classes.card, classes[tagClass], classes[replyBorder])}>
-                <div className={classes.header}>
-                    <PostAuthor author={post.author}/>
+            <React.Fragment>
+                <Card className={classnames(classes.card, classes[tagClass], classes[replyBorder])}>
+                    <div className={classes.header}>
+                        <PostAuthor post={post}/>
 
-                    <span className={classes.flex}/>
+                        <span className={classes.flex}/>
 
-                    <PostDate date={post.date}/>
+                        <PostDate date={post.date}/>
 
-                    {post.parentId === 0 && <PostExpirationBar date={post.date}/>}
-                </div>
+                        {post.parentId === 0 && <PostExpirationBar date={post.date}/>}
+                    </div>
 
-                <CardContent className={classes.content}>
-                    <span dangerouslySetInnerHTML={html}/>
-                </CardContent>
+                    <CardContent className={classes.content}>
+                        <span dangerouslySetInnerHTML={html}/>
+                    </CardContent>
 
-                <CardActions className={classes.actions} disableActionSpacing>
-                    <Tooltip title='Collapse' enterDelay={350}>
-                        <CloseIcon className={classes.toolbarButton} onClick={onCollapse}/>
-                    </Tooltip>
+                    <CardActions className={classes.actions} disableActionSpacing>
+                        <Tooltip title='Collapse' enterDelay={350}>
+                            <CloseIcon className={classes.toolbarButton} onClick={onCollapse}/>
+                        </Tooltip>
 
-                    <Tooltip title='Reply' enterDelay={350}>
-                        <ReplyIcon className={classes.toolbarButton} onClick={onReply}/>
-                    </Tooltip>
+                        <Tooltip title='Reply' enterDelay={350}>
+                            <ReplyIcon className={classes.toolbarButton} onClick={this.handleReplyClick}/>
+                        </Tooltip>
 
-                    <Tooltip title='View Post @ Shacknews.com' enterDelay={350}>
-                        <a
-                            className={classes.toolbarButton}
-                            target='_blank'
-                            href={`http://www.shacknews.com/chatty?id=${post.id}#item_${post.id}`}
-                        >
-                            <ExitToAppIcon className={classes.toolbarButton}/>
-                        </a>
-                    </Tooltip>
-                </CardActions>
-            </Card>
+                        <Tooltip title='View Post @ Shacknews.com' enterDelay={350}>
+                            <a
+                                className={classes.toolbarButton}
+                                target='_blank'
+                                href={`http://www.shacknews.com/chatty?id=${post.id}#item_${post.id}`}
+                            >
+                                <ExitToAppIcon className={classes.toolbarButton}/>
+                            </a>
+                        </Tooltip>
+                    </CardActions>
+                </Card>
+
+                {replyBoxOpenForId === post.id && <ReplyBox parentId={post.id} onCloseReplyBox={onCloseReplyBox}/>}
+            </React.Fragment>
         )
     }
 }

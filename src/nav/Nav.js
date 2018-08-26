@@ -20,7 +20,7 @@ class Nav extends React.Component {
                             <MenuIcon className={classes.white}/>
                         </IconButton>
 
-                        <Typography variant='headline' className={classes.title}>React Chatty</Typography>
+                        <Typography variant='headline' className={classes.title}>Chatty</Typography>
 
                         <RefreshButton/>
                         <UserMenu/>
