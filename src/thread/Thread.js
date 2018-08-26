@@ -8,6 +8,7 @@ import './Thread.css'
 class Thread extends React.PureComponent {
     state = {
         thread: {},
+        collapsed: false,
         replies: [],
         expandedReplyId: null
     }
@@ -31,17 +32,20 @@ class Thread extends React.PureComponent {
         this.setState({thread, replies})
     }
 
+    handleCollapseReply = () => this.setState({expandedReplyId: null})
     handleExpandReply = expandedReplyId => this.setState({expandedReplyId})
+    handleCollapse = () => this.setState({collapsed: true})
 
     render() {
-        let {thread, replies, expandedReplyId} = this.state
+        let {collapsed, thread, replies, expandedReplyId} = this.state
+        if (collapsed) return null
 
         return (
             <div className="Thread">
                 <div className="rootPost">
                     <Post
                         post={thread}
-                        onCollapse={this.collapseThread}
+                        onCollapse={this.handleCollapse}
                     />
                 </div>
 
@@ -55,6 +59,7 @@ class Thread extends React.PureComponent {
                         replies={replies}
                         expandedReplyId={expandedReplyId}
                         onExpandReply={this.handleExpandReply}
+                        onCollapseReply={this.handleCollapseReply}
                     />
                 </div>
             </div>

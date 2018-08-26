@@ -8,7 +8,7 @@ class Comments extends React.PureComponent {
     state = {}
 
     render() {
-        const {replies = [], onExpandReply, expandedReplyId} = this.props
+        const {replies = [], onCollapseReply, onExpandReply, expandedReplyId} = this.props
 
         return (
             <ul className="Comments">
@@ -21,7 +21,7 @@ class Comments extends React.PureComponent {
                                         <div className="replyPost">
                                             <Post
                                                 post={reply}
-                                                onCollapse={this.props.collapseReply}
+                                                onCollapse={onCollapseReply}
                                             />
                                         </div>
                                         {/*{*/}
@@ -37,6 +37,7 @@ class Comments extends React.PureComponent {
                                 replies={reply.posts}
                                 expandedReplyId={expandedReplyId}
                                 onExpandReply={onExpandReply}
+                                onCollapseReply={onCollapseReply}
                             />
                         </li>
                     )

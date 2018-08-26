@@ -22,7 +22,7 @@ class ChattyProvider extends React.PureComponent {
         this.setState({threads})
     }
 
-    async getChatty(threadCount) {
+    async getChatty(threadCount = 5) {
         return await fetchJson(`getChatty${threadCount > 0 ? `?count=${threadCount}` : ''}`)
     }
 

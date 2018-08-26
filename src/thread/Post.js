@@ -1,12 +1,12 @@
 import React from 'react'
-// import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import CloseIcon from '@material-ui/icons/Close'
 // import ReplyIcon from 'material-ui/svg-icons/content/reply'
 import './Post.css'
 import './shacktags.css'
 
 class Post extends React.PureComponent {
     render() {
-        let {post} = this.props
+        let {post, onCollapse} = this.props
         let html = {__html: post.body}
 
         return (
@@ -26,9 +26,11 @@ class Post extends React.PureComponent {
                 <div className="postBody postBodyText" dangerouslySetInnerHTML={html}/>
 
                 <div className="actionbar">
-                    {/*<CloseIcon className="actionItem"*/}
-                               {/*title="Collapse post"*/}
-                               {/*onClick={this.props.onCollapse}/>*/}
+                    <CloseIcon
+                        className="actionItem"
+                        title="Collapse post"
+                        onClick={onCollapse}
+                    />
                     {/*<ReplyIcon className="actionItem"*/}
                                {/*title="Reply to post"*/}
                                {/*onClick={() => this.props.showReplyBox(post.threadId, post.id)}/>*/}
