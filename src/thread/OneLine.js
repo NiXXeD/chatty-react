@@ -1,5 +1,6 @@
 import React from 'react'
 import {trim} from 'lodash'
+import PostAuthor from './PostAuthor'
 
 class OneLine extends React.PureComponent {
     state = {
@@ -63,7 +64,7 @@ class OneLine extends React.PureComponent {
                     onClick={this.handleClick}
                 />
                 <span className="commentSeparator">:</span>
-                <span className="user">{author}</span>
+                <PostAuthor author={author}/>
             </React.Fragment>
         )
     }

@@ -22,7 +22,7 @@ class UserMenu extends React.Component {
         return (
             <React.Fragment>
                 <IconButton onClick={this.handleClick}>
-                    <PersonIcon style={{color: '#fff'}}/>
+                    <PersonIcon/>
                 </IconButton>
 
                 <Menu

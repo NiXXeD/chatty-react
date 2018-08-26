@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import {withStyles} from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import UserMenu from '../userMenu/UserMenu'
+import RefreshButton from './RefreshButton'
 
 class Nav extends React.Component {
     render() {
@@ -21,6 +22,7 @@ class Nav extends React.Component {
 
                         <Typography variant='headline' className={classes.title}>React Chatty</Typography>
 
+                        <RefreshButton/>
                         <UserMenu/>
                     </Toolbar>
                 </AppBar>

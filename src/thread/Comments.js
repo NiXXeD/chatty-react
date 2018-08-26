@@ -18,12 +18,10 @@ class Comments extends React.PureComponent {
                             {
                                 expandedReplyId === reply.id ? (
                                     <React.Fragment>
-                                        <div className="replyPost">
-                                            <Post
-                                                post={reply}
-                                                onCollapse={onCollapseReply}
-                                            />
-                                        </div>
+                                        <Post
+                                            post={reply}
+                                            onCollapse={onCollapseReply}
+                                        />
                                         {/*{*/}
                                         {/*replyBoxOpenForId === reply.id &&*/}
                                         {/*<ReplyBox thread={thread} post={reply}/>*/}

@@ -13,10 +13,6 @@ class ChattyProvider extends React.PureComponent {
         return this.startActive()
     }
 
-    componentWillUnmount() {
-
-    }
-
     async startActive() {
         let {threads} = await this.getChatty()
         this.setState({threads})

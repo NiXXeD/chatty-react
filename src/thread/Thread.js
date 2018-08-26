@@ -42,12 +42,10 @@ class Thread extends React.PureComponent {
 
         return (
             <div className="Thread">
-                <div className="rootPost">
-                    <Post
-                        post={thread}
-                        onCollapse={this.handleCollapse}
-                    />
-                </div>
+                <Post
+                    post={thread}
+                    onCollapse={this.handleCollapse}
+                />
 
                 {/*{*/}
                 {/*replyBoxOpenForId === thread.id &&*/}
